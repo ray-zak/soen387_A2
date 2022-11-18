@@ -10,7 +10,7 @@ public class AdminDOA {
 
     public int verify_Admin(int adminID){
 
-        String SELECT_ADMIN_SQL = "SELECT * FROM assignment1.administrator WHERE " + "EmployementID='" + adminID + "';";
+        String SELECT_ADMIN_SQL = "SELECT * FROM Assignment1.Administrator WHERE " + "EmployementID='" + adminID + "';";
 
         ResultSet result;
         Connection conn = DB_Connection.connectDB();
@@ -20,7 +20,7 @@ public class AdminDOA {
             System.out.println(preparedStatement);
 
             result =  preparedStatement.executeQuery();
-
+           // System.out.println(result);
             System.out.println(result.isBeforeFirst());
 
             if (result.isBeforeFirst()){
@@ -104,7 +104,7 @@ public class AdminDOA {
     }
     public int createCourse(course newCourse){
 
-        String INSERT_COURSE_SQL ="INSERT INTO assignment1.course" + " (CourseCode,Title,Semester,days,time,instructor,room,StartDate,EndDate) VALUES " +
+        String INSERT_COURSE_SQL ="INSERT INTO Assignment1.Course" + " (CourseCode,Title,Semester,days,time,instructor,room,StartDate,EndDate) VALUES " +
                 " (?,?,?,?,?,?,?,?,?);";
 
         int result = 0;

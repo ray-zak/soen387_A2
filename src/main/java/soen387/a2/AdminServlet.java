@@ -7,6 +7,9 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet(name = "AdminServlet", value = "/AdminServlet")
 public class AdminServlet extends HttpServlet {
@@ -19,6 +22,72 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       int formNumber = Integer.parseInt(request.getParameter("formNumber"));
+       if(formNumber==1) {
+
+           int[] v ={2222222,5555555,6666666,7777777,8989898} ;
+           HttpSession session = request.getSession();
+
+           session.setAttribute("studentList", v);
+           request.setAttribute("identification", v);
+           RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/Admin_Pages/CourseTakenByStudent.jsp");
+           rd.forward(request, response);
+       }
+       else if (formNumber==1){
+           HttpSession session = request.getSession();
+           String[]u={"soen287"} ;
+           session.setAttribute("courseList", u);
+
+           request.setAttribute("identification", u);
+           RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/Admin_Pages/StudentsInCourse.jsp");
+           rd.forward(request, response);
+
+       }
+       else if (formNumber==2){
+
+           int StudentID = Integer.parseInt(request.getParameter("student"));
+           System.out.println(StudentID);
+           ArrayList<String> courseResponse = new ArrayList<String>();
+
+          RegisteredInDOA rid= new RegisteredInDOA();
+          ResultSet r = rid.getCourses(StudentID);
+
+
+
+          while(true){
+              try {
+                  if (!r.next()) {break;}
+              } catch (SQLException e) {
+                  throw new RuntimeException(e);
+              }
+              try {
+                 courseResponse.add(r.getString("CourseCode")) ;
+              } catch (SQLException e) {
+                  throw new RuntimeException(e);
+              }
+
+
+
+
+          }
+
+           HttpSession session = request.getSession();
+           System.out.println(courseResponse);
+
+           session.setAttribute("courses", courseResponse);
+           RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/Admin_Pages/CourseTakenByStudent.jsp");
+           rd.forward(request, response);
+
+
+       }
+       else if (formNumber==3){
+
+
+
+
+
+
+       }
 
     }
 
@@ -36,16 +105,16 @@ public class AdminServlet extends HttpServlet {
 
               if (adminDOA.verify_Admin(adminID) == 1){
 
-
-                  response.sendRedirect("/soen387_A2/Admin_Pages/AdminPage.jsp");
-
                   session.setAttribute("verifiedAdmin",adminID);
+
+                  System.out.println(request.getContextPath());
+                  response.sendRedirect(request.getContextPath()+"/Admin_Pages/AdminPage.jsp");
 
 
                }
               else{
 
-                  response.sendRedirect("/soen387_A2/Admin_Pages/Admin_Login.jsp");
+                  response.sendRedirect(request.getContextPath()+"/Admin_Pages/Admin_Login.jsp");
               }
 
 

@@ -9,7 +9,7 @@ public class DB_Connection {
     static final String DB_URL = "jdbc:mysql://localhost:3306/Assignment1";
     // Database credentials
     static final String USER = "root";
-    static final String PASS = "";
+    static final String PASS = "XwhkOtms7";
 
     private static Connection conn= null;
     private static Statement stmt = null;
