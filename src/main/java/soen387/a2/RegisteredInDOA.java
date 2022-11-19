@@ -31,6 +31,31 @@ public  ResultSet getCourses  (int StudentID) {
     return null;
 }
 
+
+    public  ResultSet getStudents  (String courseCode) {
+        String SELECT_ADMIN_SQL = "SELECT StudentID FROM Assignment1.RegisteredIn WHERE " + "CourseCode='" + courseCode + "';";
+
+        ResultSet result;
+        Connection conn = DB_Connection.connectDB();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement((SELECT_ADMIN_SQL));
+            System.out.println(preparedStatement);
+
+            result = preparedStatement.executeQuery();
+            // System.out.println(result);
+            System.out.println(result.isBeforeFirst());
+
+            return result;
+
+        } catch (SQLException e) {
+            // process sql exception
+            printSQLException(e);
+        }
+
+
+        return null;
+    }
+
     private void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {

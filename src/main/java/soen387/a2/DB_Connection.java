@@ -4,6 +4,7 @@ import java.sql.*;
 import java.sql.DriverManager;
 
 
+
 public class DB_Connection {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/Assignment1";

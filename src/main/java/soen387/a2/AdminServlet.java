@@ -23,21 +23,27 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        int formNumber = Integer.parseInt(request.getParameter("formNumber"));
-       if(formNumber==1) {
 
-           int[] v ={2222222,5555555,6666666,7777777,8989898} ;
+       if(formNumber==1) {
+           StudentDAO sd= new StudentDAO();
+           Integer[] v =  sd.fetchAllStudentIDS() ;
+           System.out.println(v[0]);
            HttpSession session = request.getSession();
 
            session.setAttribute("studentList", v);
-           request.setAttribute("identification", v);
+           if(session.getAttribute("courses")!=null){
+               session.removeAttribute("courses");}
            RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/Admin_Pages/CourseTakenByStudent.jsp");
            rd.forward(request, response);
        }
-       else if (formNumber==1){
+       else if (formNumber==0){
            HttpSession session = request.getSession();
-           String[]u={"soen287"} ;
+           CourseDAO cd= new CourseDAO();
+           String[] u= cd.fetchAllCoureCode();
+           System.out.println(u[0]);
            session.setAttribute("courseList", u);
-
+           if(session.getAttribute("studentslist")!=null){
+               session.removeAttribute("studentslist");}
            request.setAttribute("identification", u);
            RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/Admin_Pages/StudentsInCourse.jsp");
            rd.forward(request, response);
@@ -83,6 +89,38 @@ public class AdminServlet extends HttpServlet {
        else if (formNumber==3){
 
 
+           String courseCode = request.getParameter("course");
+           System.out.println("here"+courseCode);
+           ArrayList<Integer> studentResponse = new ArrayList<Integer>();
+
+           RegisteredInDOA rid= new RegisteredInDOA();
+           ResultSet r = rid.getStudents(courseCode);
+
+
+
+           while(true){
+               try {
+                   if (!r.next()) {break;}
+               } catch (SQLException e) {
+                   throw new RuntimeException(e);
+               }
+               try {
+                   studentResponse.add(r.getInt("StudentID")) ;
+               } catch (SQLException e) {
+                   throw new RuntimeException(e);
+               }
+
+
+
+
+           }
+
+           HttpSession session = request.getSession();
+           System.out.println(studentResponse);
+
+           session.setAttribute("studentslist",studentResponse );
+           RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/Admin_Pages/StudentsInCourse.jsp");
+           rd.forward(request, response);
 
 
 

@@ -56,7 +56,7 @@ response.sendRedirect("src/main/webapp/Admin_Pages/AdminPage.jsp");
       <div class="row justify-content-center my-5">
         <div class="col-lg-6">
           <button class=" btn1 btn-lg  mt-3 mb-4 " onclick="window.location='./CreateCourse.jsp';">Create a Course</button>
-          <button type="submit" form="form1" class=" btn1 btn-lg  mt-3 mb-4 ">search courses taken by student</button>
+          <button type="submit" form="form1" class=" btn1 btn-lg  mt-3 mb-4">search courses taken by student</button>
           <button type="submit" form="form2" class=" btn1 btn-lg  mt-3 mb-4">search student in course</button>
         </div>
       </div>

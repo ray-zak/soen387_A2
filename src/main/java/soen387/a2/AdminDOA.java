@@ -119,11 +119,11 @@ public class AdminDOA {
             preparedStatement.setString(2,newCourse.getTitle());
             preparedStatement.setString(3,newCourse.getSemester());
             preparedStatement.setString(4, newCourse.getDays());
-            preparedStatement.setString(5, newCourse.getTime());
+            preparedStatement.setString(5, String.valueOf(newCourse.getTime()));
             preparedStatement.setString(6, newCourse.getInstructor());
             preparedStatement.setString(7, newCourse.getRoom());
-            preparedStatement.setString(8, newCourse.getStartDate());
-            preparedStatement.setString(9, newCourse.getEndDate());
+            preparedStatement.setString(8, String.valueOf(newCourse.getStartDate()));
+            preparedStatement.setString(9, String.valueOf(newCourse.getEndDate()));
 
             System.out.println(preparedStatement);
             result = preparedStatement.executeUpdate();

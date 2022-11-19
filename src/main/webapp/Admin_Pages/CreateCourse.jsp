@@ -9,7 +9,7 @@
 <%
 if(session.getAttribute("verifiedAdmin") == null){
 
-    response.sendRedirect("/soen387_A2/Admin_Pages/Admin_Login.jsp");
+    response.sendRedirect(request.getContextPath()+"/Admin_Pages/Admin_Login.jsp");
 
 }
 %>

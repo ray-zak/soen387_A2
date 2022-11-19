@@ -1,4 +1,4 @@
-<%@ page import="java.io.PrintWriter" %><%--
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: ram
   Date: 2022-11-17
@@ -14,7 +14,7 @@
   <title> Student Page </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-  <link rel="stylesheet" href="new_style.css">
+  <link rel="stylesheet" href="<%= request.getContextPath()%>/Admin_Pages/styles/new_style.css">
 </head>
 <body>
 
@@ -27,7 +27,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="../index.jsp">Home</a>
+        <a class="nav-link" href="<%= request.getContextPath()%>/Admin_Pages/AdminPage.jsp">Home</a>
       </li>
     </ul>
 
@@ -38,19 +38,19 @@
   <div class="container">
     <div class="row no-gutters p-3">
       <h1 class=" font-weight-bold text-center">Choose A Course</h1>
-      <form action="./StudentsInCourse.jsp" method="post">
+      <form  action="<%= request.getContextPath() %>/AdminServlet"  method="GET" >
         <div class="search_select_box">
           <select data-live-search="true" class="w-100" id="course" name="course" size="4" multiple>
 
             <%
               String[] courses= (String[])session.getAttribute("courseList");
               for(int i=0; i< courses.length;i++){
-              out.println("<option>"+courses[i]+"</option>");}
+              out.println("<option value="+courses[i]+">"+courses[i]+"</option>");}
             %>
             
           </select>
 
-
+          <input value=3 type="hidden" name="formNumber" />
           <button type="submit" name="submit" value="Submit" class="btn1">Enter</button>
         </div>
       </form>
@@ -67,16 +67,29 @@
   <div class="row justify-content-center p-3">
     <div class="col-lg-3">
       <div class="list-group">
+        <%
+          if(session.getAttribute("studentslist")!=null){
+            ArrayList<Integer> studentslist= (ArrayList <Integer>)session.getAttribute("studentslist");
+            if(studentslist.size() > 0){
+              for(int i=0; i< studentslist.size(); i++){
+                out.println("<div class= \"list-group-item py-3 \">");
+                out.println("<h5 class=\"text-center mb-1 \"/>");
+                out.println(studentslist.get(i));
+                out.println("</h5>");
+                out.println("</div>");}}
 
-    </div>
+          }
+        %>
+
+
+      </div>
   </div>
 </div>
 </div>
 
-
 <div class="container mt-3">
   <div class="row justify-content-center p-3">
-    <p class="text-center"><a href="./AdminPage.jsp">Back To Admin Page</a></p>
+    <p class="text-center"><a href="<%= request.getContextPath() %>/AdminPage.jsp">Back To Admin Page</a></p>
   </div>
 </div>
 
