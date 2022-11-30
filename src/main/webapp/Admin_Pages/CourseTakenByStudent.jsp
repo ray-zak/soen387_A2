@@ -1,5 +1,9 @@
 <%--suppress BadExpressionStatementJS --%>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList"
+         import="soen387.a2.StudentDAO"
+
+%>
+<%@ page import="soen387.a2.Student" %><%--
   Created by IntelliJ IDEA.
   User: ram
   Date: 2022-11-17
@@ -17,7 +21,14 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/Admin_Pages/styles/new_style.css">
 </head>
 <body>
+<%
 
+
+    StudentDAO std= new StudentDAO();
+    Integer[]  ids=std.fetchAllStudentIDS();
+
+
+%>
 
 <nav class="navbar navbar-expand-lg navbar-light ">
     <a class="navbar-brand" href="#"> <h2>Welcome To Concordia</h2></a>
@@ -47,7 +58,7 @@
                     <select data-live-search="true" class="w-100" id="student" name="student" size="4" multiple >
                         <%
                             if(session.getAttribute("studentList")!=null) {
-                                Integer[] ids = (Integer[]) session.getAttribute("studentList");
+                               // Integer[] ids = (Integer[]) session.getAttribute("studentList");
                                 for (int i = 0; i < ids.length; i++) {
                                     out.println("<option value=" + ids[i] + ">" + ids[i] + "</option>");
                                 }

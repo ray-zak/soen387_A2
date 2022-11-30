@@ -1,4 +1,5 @@
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList"
+         import="soen387.a2.CourseDAO"%><%--
   Created by IntelliJ IDEA.
   User: ram
   Date: 2022-11-17
@@ -6,7 +7,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
 
+
+  CourseDAO cd= new CourseDAO();
+  String[]  courses=cd.fetchAllCourseCodes();
+
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +51,7 @@
           <select data-live-search="true" class="w-100" id="course" name="course" size="4" multiple>
 
             <%
-              String[] courses= (String[])session.getAttribute("courseList");
+              //String[] courses= (String[])session.getAttribute("courseList");
               for(int i=0; i< courses.length;i++){
               out.println("<option value="+courses[i]+">"+courses[i]+"</option>");}
             %>
